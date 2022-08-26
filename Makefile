@@ -5,6 +5,7 @@ init:
 	git init
 	python -m pre_commit install
 	pip install -e .
+	mkdir -p tests/{unit,integration}
 
 check:
 	black --check .
