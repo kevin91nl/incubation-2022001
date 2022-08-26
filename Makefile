@@ -1,10 +1,7 @@
-install-dependencies:
-	pip install -r requirements.txt
-
-install-dev-dependencies:
-	pip install -r requirements-dev.txt
+TESTFLAGS = ""
 
 init:
+	pip install -r requirements-dev.txt
 	git init
 	python -m pre_commit install
 	pip install -e .
@@ -15,11 +12,17 @@ check:
 	pyflakes .
 	pyright
 
-test-doctest:
-	python -m pytest src --doctest-modules --exitfirst
+-run-tests-in-folder:
+	python -m pytest $(TESTDIR) $(TESTFLAGS) --exitfirst ; \
+	EXIT_STATUS=$$? ; \
+	[ "$$EXIT_STATUS" -eq 1 ] && exit 1 || exit 0
 
-test-unit:
-	python -m pytest tests/unit --exitfirst
+test-doctest: TESTDIR=src
+test-doctest: TESTFLAGS=--doctest-modules
+test-doctest: -run-tests-in-folder
 
-test-integration:
-	python -m pytest tests/integration --exitfirst
+test-unit: TESTDIR=tests/unit
+test-unit: -run-tests-in-folder
+
+test-integration: TESTDIR=tests/integration
+test-integration: -run-tests-in-folder
