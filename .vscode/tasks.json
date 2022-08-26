@@ -1,0 +1,25 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Static code checks",
+            "type": "shell",
+            "command": "make check"
+        },
+        {
+            "label": "Test - Run doctests",
+            "type": "shell",
+            "command": "make test-doctest"
+        },
+        {
+            "label": "Test - Run unit tests",
+            "type": "shell",
+            "command": "make test-unit"
+        },
+        {
+            "label": "Test - Run integration tests",
+            "type": "shell",
+            "command": "make integration"
+        }
+    ]
+}
