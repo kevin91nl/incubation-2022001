@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from typing import List, Optional, Tuple, Any
-from model.language_model.text_generation_model import TextGenerationModel
+from model.language_model.text_generation_pipeline import TextGenerationModel
 
 
 @dataclass
