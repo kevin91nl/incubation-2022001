@@ -20,6 +20,11 @@
             "label": "Test - Run integration tests",
             "type": "shell",
             "command": "make integration"
+        },
+        {
+            "label": "Run entrypoint",
+            "type": "shell",
+            "command": "python main.py"
         }
     ]
 }
