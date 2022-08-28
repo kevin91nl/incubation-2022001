@@ -1,3 +1,5 @@
+"""The entrypoint."""
+
 import hydra
 from omegaconf import DictConfig
 from pipeline.information_extraction_models import InformationExtractionModel
@@ -10,6 +12,13 @@ from utils import load_class_instance
 
 @hydra.main(config_path="conf", config_name="config", version_base=None)
 def app(config: DictConfig) -> None:
+    """Run the application.
+
+    Parameters
+    ----------
+    config : DictConfig
+        The configuration.
+    """
     tokenizer = load_class_instance(
         module=pipeline.tokenizer_models,
         protocol=Tokenizer,
