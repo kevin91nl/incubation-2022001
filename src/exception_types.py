@@ -3,7 +3,7 @@
 from typing import Any, List, Optional
 
 
-class ClassNotFoundException(BaseException):
+class ClassNotFoundException(Exception):
     """Exception when a dynamically loaded class is not found."""
 
     def __init__(
@@ -47,7 +47,7 @@ class ClassNotFoundException(BaseException):
         return output
 
 
-class UnsupportedTokenTypeException(BaseException):
+class UnsupportedTokenTypeException(Exception):
     """Exception when a token type is not supported."""
 
     def __init__(self, token_type: Any, *args: Any, **kwargs: Any) -> None:
