@@ -93,7 +93,9 @@ class GPT2Tokenizer(Tokenizer):
         config : DictConfig
             The configuration.
         """
-        tokenizer: HuggingFaceGPT2Tokenizer = HuggingFaceGPT2Tokenizer.from_pretrained("gpt2")  # type: ignore
+        tokenizer: HuggingFaceGPT2Tokenizer = HuggingFaceGPT2Tokenizer.from_pretrained(
+            "gpt2"
+        )
         tokenizer.add_special_tokens(config.special_tokens)
         self._tokenizer = tokenizer
         self._config = config
@@ -259,7 +261,7 @@ class CharTokenizer(Tokenizer):
         TextRepresentation
             The decoded text.
         """
-        results = token_ids.tolist()  # type: ignore
+        results = token_ids.tolist()
         return self.decode(results)  # type: ignore
 
     def decode(self, token_ids: TokenRepresentation) -> TextRepresentation:

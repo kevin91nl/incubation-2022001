@@ -45,7 +45,9 @@ class ConfiguredDataset(Dataset):  # type: ignore
             The configuration of the dataset.
         """
         super().__init__()
-        self.data = pd.read_json(config.path, orient="records", lines=True)
+        self.data: pd.DataFrame = pd.read_json(
+            config.path, orient="records", lines=True
+        )
 
     def __getitem__(self, index: int) -> DatasetItem:
         """Get the item at the given index.
