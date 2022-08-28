@@ -4,7 +4,8 @@ from abc import ABC, abstractmethod
 from typing import Any, Optional
 
 from omegaconf import DictConfig
-from pipeline.tokenizer_models import GPT2TokenRepresentation
+from exception_types import PreprocessingStepMissingException
+from pipeline.tokenizer_models import GPT2TokenRepresentation, GPT2Tokenizer
 from transformers.models.gpt2.modeling_gpt2 import GPT2Model as HuggingFaceGPT2Model
 
 
@@ -18,6 +19,16 @@ class InformationExtractionModel(ABC):
         ----------
         config : DictConfig
             The configuration.
+        """
+        ...
+
+    def handle_tokenizer(self, tokenizer: Any) -> None:
+        """Handle the tokenizer.
+
+        Parameters
+        ----------
+        tokenizer : Any
+            The tokenizer.
         """
         ...
 
@@ -53,6 +64,23 @@ class GPT2Model(InformationExtractionModel):
         """
         model: HuggingFaceGPT2Model = HuggingFaceGPT2Model.from_pretrained("gpt2")  # type: ignore
         self._model = model
+
+    def handle_tokenizer(self, tokenizer: GPT2Tokenizer) -> None:
+        """Handle the tokenizer.
+
+        Parameters
+        ----------
+        tokenizer : GPT2Tokenizer
+            The tokenizer.
+
+        Raises
+        ------
+        PreprocessingStepMissingException
+            If the required preprocessing step is not executed.
+        """
+        if self._model is None:
+            raise PreprocessingStepMissingException(self.load_config)
+        self._model.resize_token_embeddings(tokenizer.vocab_size)
 
     def _get_model(self) -> HuggingFaceGPT2Model:
         """Get the model.

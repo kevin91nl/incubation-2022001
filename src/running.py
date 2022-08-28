@@ -23,6 +23,7 @@ class Runner:
 
     def run(self) -> None:
         """Run the code."""
-        tokens = self._tokenizer.encode(["Hello world"])
-        print(tokens)
-        print(self._model.predict(tokens))
+        print(self._tokenizer.encode(["Hello [SEP] world"]))
+        print(self._tokenizer.encode(["Hello [CLS] world"]))
+        # print(tokens)
+        # print(self._model.predict(tokens))

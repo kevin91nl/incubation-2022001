@@ -12,7 +12,10 @@ pipeline:
   tokenizer:
     name: GPT2Tokenizer
     special_tokens:
-      pad_token: <|endoftext|>
+      pad_token: "[PAD]"
+      sep_token: "[SEP]"
+      cls_token: "[CLS]"
+      mask_token: "[MASK]"
     truncation: true
     padding: true
     max_length: 512

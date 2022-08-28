@@ -98,6 +98,17 @@ class GPT2Tokenizer(Tokenizer):
         self._tokenizer = tokenizer
         self._config = config
 
+    @property
+    def vocab_size(self) -> int:
+        """Get the vocab size.
+
+        Returns
+        -------
+        int
+            The vocab size.
+        """
+        return self._get_tokenizer().vocab_size
+
     def _get_tokenizer(self) -> HuggingFaceGPT2Tokenizer:
         """Get the tokenizer.
 

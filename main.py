@@ -32,6 +32,7 @@ def app(config: DictConfig) -> None:
         class_name=config.pipeline.model.name,
     )
     model.load_config(config.pipeline.model)
+    model.handle_tokenizer(tokenizer)
 
     runner = Runner(tokenizer=tokenizer, model=model)
     runner.run()
