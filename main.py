@@ -23,8 +23,8 @@ def app(dict_config: DictConfig) -> None:
         module=pipeline.tokenizer_models,
         protocol=Tokenizer,
         class_name=config.pipeline.tokenizer.name,
-        config=config.pipeline.tokenizer,
     )
+    tokenizer.load_config(config.pipeline.tokenizer)
 
     runner = Runner(tokenizer=tokenizer)
     runner.run()

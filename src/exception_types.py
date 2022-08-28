@@ -11,7 +11,6 @@ class ClassNotFoundException(Exception):
         self.candidates = candidates
 
     def __str__(self):
-        output = f'{self.abc_class.__name__} subclass "{self.class_name}" not found'
-        if self.candidates:
-            output += f"; Options: {self.candidates}"
+        option_list = self.candidates or []
+        output = f'{self.abc_class.__name__} subclass "{self.class_name}" not found; Options: {option_list}'
         return output
