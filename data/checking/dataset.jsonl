@@ -1,0 +1,3 @@
+{"context": "You shall not pass", "provisions": [{"provision_type": "prohibition", "bearer": "You", "action": "pass"}]}
+{"context": "You may fly with a drone", "provisions": [{"provision_type": "permission", "bearer": "You", "action": "fly"}]}
+{"context": "Unrelated text", "provisions": []}

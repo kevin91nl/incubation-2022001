@@ -93,10 +93,25 @@ class GPT2Tokenizer(Tokenizer):
         config : DictConfig
             The configuration.
         """
-        tokenizer: HuggingFaceGPT2Tokenizer = HuggingFaceGPT2Tokenizer.from_pretrained("gpt2")  # type: ignore
+        tokenizer: HuggingFaceGPT2Tokenizer = HuggingFaceGPT2Tokenizer.from_pretrained(
+            "gpt2"
+        )
         tokenizer.add_special_tokens(config.special_tokens)
         self._tokenizer = tokenizer
         self._config = config
+
+    @property
+    def vocab_size(self) -> int:
+        """Get the vocab size.
+
+        Returns
+        -------
+        int
+            The vocab size.
+        """
+        return self._get_tokenizer().vocab_size + len(
+            self._get_tokenizer().all_special_ids
+        )
 
     def _get_tokenizer(self) -> HuggingFaceGPT2Tokenizer:
         """Get the tokenizer.
@@ -144,7 +159,7 @@ class GPT2Tokenizer(Tokenizer):
             padding=self._config.padding,
             max_length=self._config.max_length,
         )
-        return GPT2TokenRepresentation(**result)  # type: ignore
+        return GPT2TokenRepresentation(**result)
 
     def decode(self, token_ids: GPT2TokenRepresentation) -> TextRepresentation:
         """Decode the token ids.
@@ -246,8 +261,8 @@ class CharTokenizer(Tokenizer):
         TextRepresentation
             The decoded text.
         """
-        results = token_ids.tolist()  # type: ignore
-        return self.decode(results)  # type: ignore
+        results = token_ids.tolist()
+        return self.decode(results)
 
     def decode(self, token_ids: TokenRepresentation) -> TextRepresentation:
         """Decode the token ids.

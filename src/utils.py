@@ -9,7 +9,7 @@ B = TypeVar("B", bound="Any")
 
 
 def list_class_instances(
-    module: Any, protocol: Type[B], exclude: Optional[List[B]]
+    module: Any, protocol: Type[B], exclude: Optional[List[B]] = None
 ) -> Dict[str, Type[B]]:
     """List all classes in a module that implement a given protocol.
 
@@ -30,7 +30,9 @@ def list_class_instances(
     return {
         name: cls
         for name, cls in inspect.getmembers(module, inspect.isclass)
-        if cls not in [protocol] and protocol in cls.__mro__ and cls not in exclude
+        if cls not in [protocol]
+        and protocol in cls.__mro__
+        and cls not in (exclude or [])
     }
 
 

@@ -2,6 +2,7 @@
 
 import hydra
 from omegaconf import DictConfig
+from dataset import ConfiguredDataset
 from pipeline.information_extraction_models import InformationExtractionModel
 import pipeline.information_extraction_models
 from running import Runner
@@ -32,8 +33,19 @@ def app(config: DictConfig) -> None:
         class_name=config.pipeline.model.name,
     )
     model.load_config(config.pipeline.model)
+    model.handle_tokenizer(tokenizer)
 
-    runner = Runner(tokenizer=tokenizer, model=model)
+    train_dataset = ConfiguredDataset(config.dataset.train_dataset)
+    test_dataset = ConfiguredDataset(config.dataset.test_dataset)
+    validation_dataset = ConfiguredDataset(config.dataset.validation_dataset)
+
+    runner = Runner(
+        tokenizer=tokenizer,
+        model=model,
+        train_dataset=train_dataset,
+        test_dataset=test_dataset,
+        validation_dataset=validation_dataset,
+    )
     runner.run()
 
 

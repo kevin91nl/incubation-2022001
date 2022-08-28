@@ -1,0 +1,9 @@
+# @package _global_
+
+dataset:
+  train_dataset:
+    path: ${paths.data}/checking/dataset.jsonl
+  test_dataset:
+    path: ${paths.data}/checking/dataset.jsonl
+  validation_dataset:
+    path: ${paths.data}/checking/dataset.jsonl
