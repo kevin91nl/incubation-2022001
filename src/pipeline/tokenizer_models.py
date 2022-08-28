@@ -159,7 +159,7 @@ class GPT2Tokenizer(Tokenizer):
             padding=self._config.padding,
             max_length=self._config.max_length,
         )
-        return GPT2TokenRepresentation(**result)  # type: ignore
+        return GPT2TokenRepresentation(**result)
 
     def decode(self, token_ids: GPT2TokenRepresentation) -> TextRepresentation:
         """Decode the token ids.
@@ -262,7 +262,7 @@ class CharTokenizer(Tokenizer):
             The decoded text.
         """
         results = token_ids.tolist()
-        return self.decode(results)  # type: ignore
+        return self.decode(results)
 
     def decode(self, token_ids: TokenRepresentation) -> TextRepresentation:
         """Decode the token ids.

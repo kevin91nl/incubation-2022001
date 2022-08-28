@@ -62,7 +62,7 @@ class ConfiguredDataset(Dataset):  # type: ignore
         DatasetItem
             The item.
         """
-        return DatasetItem(**self.data.iloc[index % len(self)].to_dict())  # noqa
+        return DatasetItem(**self.data.iloc[index % len(self)].to_dict())
 
     def __len__(self) -> int:
         """Get the length of the dataset.
@@ -72,4 +72,4 @@ class ConfiguredDataset(Dataset):  # type: ignore
         int
             The length of the dataset.
         """
-        return len(self.data)  # noqa
+        return len(self.data)
