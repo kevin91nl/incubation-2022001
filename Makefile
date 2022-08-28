@@ -1,7 +1,7 @@
 TESTFLAGS = ""
 
 init:
-	pip install -r requirements-dev.txt
+	pip install --upgrade --upgrade-strategy eager -r requirements-dev.txt
 	git init
 	python -m pre_commit install
 	pip install -e .
