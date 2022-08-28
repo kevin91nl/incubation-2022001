@@ -82,3 +82,78 @@ class CharTokenizer(Tokenizer):
             if isinstance(token_ids, decode_type):
                 return decoder_fn(token_ids)  # type: ignore
         raise ValueError(f"Unsupported token_ids type: {type(token_ids)}")
+
+
+def very_complex(
+    a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z
+):
+    if 1 > 2:
+        if 3 > 4:
+            if 5 > 6:
+                return 7
+    if a > b:
+        if c > d > e:
+            if very_complex(
+                z,
+                y,
+                x,
+                w,
+                v,
+                u,
+                t,
+                s,
+                r,
+                q,
+                p,
+                o,
+                n,
+                m,
+                l,
+                k,
+                j,
+                i,
+                h,
+                g,
+                f,
+                e,
+                d,
+                c,
+                b,
+                a,
+            ):
+                return 8
+    if 1 > 2:
+        if 3 > 4:
+            if 5 > 6:
+                return 7
+    if a > b:
+        if c > d > e:
+            if very_complex(
+                z,
+                y,
+                x,
+                w,
+                v,
+                u,
+                t,
+                s,
+                r,
+                q,
+                p,
+                o,
+                n,
+                m,
+                l,
+                k,
+                j,
+                i,
+                h,
+                g,
+                f,
+                e,
+                d,
+                c,
+                b,
+                a,
+            ):
+                return 8
