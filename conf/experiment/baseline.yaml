@@ -13,5 +13,8 @@ pipeline:
     name: GPT2Tokenizer
     special_tokens:
       pad_token: <|endoftext|>
+    truncation: true
+    padding: true
+    max_length: 512
   model:
-    name: gpt2
+    name: GPT2Model

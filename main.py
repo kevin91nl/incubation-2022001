@@ -1,24 +1,15 @@
 import hydra
-from hydra.core.config_store import ConfigStore
-from config import Config
-from omegaconf import DictConfig, OmegaConf
-
+from omegaconf import DictConfig
+from pipeline.information_extraction_models import InformationExtractionModel
+import pipeline.information_extraction_models
 from running import Runner
-from types import SimpleNamespace
 import pipeline.tokenizer_models
 from pipeline.tokenizer_models import Tokenizer
 from utils import load_class_instance
 
-config_store = ConfigStore.instance()
-config_store.store(name="config", node=Config)
-
 
 @hydra.main(config_path="conf", config_name="config", version_base=None)
-def app(dict_config: DictConfig) -> None:
-    if missing_keys := OmegaConf.missing_keys(dict_config):
-        raise RuntimeError(f"Got missing keys in the config: {missing_keys}")
-    config: Config = SimpleNamespace(**dict_config)  # type: ignore
-
+def app(config: DictConfig) -> None:
     tokenizer = load_class_instance(
         module=pipeline.tokenizer_models,
         protocol=Tokenizer,
@@ -26,7 +17,14 @@ def app(dict_config: DictConfig) -> None:
     )
     tokenizer.load_config(config.pipeline.tokenizer)
 
-    runner = Runner(tokenizer=tokenizer)
+    model = load_class_instance(
+        module=pipeline.information_extraction_models,
+        protocol=InformationExtractionModel,
+        class_name=config.pipeline.model.name,
+    )
+    model.load_config(config.pipeline.model)
+
+    runner = Runner(tokenizer=tokenizer, model=model)
     runner.run()
 
 

@@ -1,38 +1,49 @@
+from dataclasses import dataclass
 from typing import Dict, Union, Any, List, Optional
 from abc import abstractmethod, ABC
+from omegaconf import DictConfig
 from transformers.tokenization_utils_base import AddedToken  # type: ignore
-from config import TokenizerConfig
 import torch
 import numpy as np  # NOQA
 from transformers.models.gpt2.tokenization_gpt2 import (
     GPT2Tokenizer as HuggingFaceGPT2Tokenizer,
 )
 
+_primary_token_classes = Union[int, List[int], "np.ndarray[Any, Any]", "torch.Tensor"]
 
-TokenRepresentation = Union[int, List[int], "np.ndarray[Any, Any]", "torch.Tensor"]
-TextRepresentation = Union[str, List[str]]
+
+TokenRepresentation = _primary_token_classes
+TextRepresentation = List[str]
+
+
+@dataclass
+class GPT2TokenRepresentation:
+    input_ids: _primary_token_classes
+    attention_mask: _primary_token_classes
 
 
 class Tokenizer(ABC):
-    def load_config(self, config: TokenizerConfig) -> Any:
+    def load_config(self, config: DictConfig) -> Any:
         ...
 
     @abstractmethod
-    def encode(self, text: TextRepresentation) -> TokenRepresentation:
+    def encode(self, text: TextRepresentation) -> Any:
         ...
 
     @abstractmethod
-    def decode(self, token_ids: TokenRepresentation) -> TextRepresentation:
+    def decode(self, token_ids: Any) -> TextRepresentation:
         ...
 
 
 class GPT2Tokenizer(Tokenizer):
     _tokenizer: Optional[HuggingFaceGPT2Tokenizer] = None
+    _config: Optional[DictConfig] = None
 
-    def load_config(self, config: TokenizerConfig) -> Any:
+    def load_config(self, config: DictConfig) -> Any:
         tokenizer: HuggingFaceGPT2Tokenizer = HuggingFaceGPT2Tokenizer.from_pretrained("gpt2")  # type: ignore
         tokenizer.add_special_tokens(config.special_tokens)
         self._tokenizer = tokenizer
+        self._config = config
 
     def _get_tokenizer(self) -> HuggingFaceGPT2Tokenizer:
         assert (
@@ -43,19 +54,27 @@ class GPT2Tokenizer(Tokenizer):
     def _add_special_tokens(self, tokens: Dict[str, Union[str, AddedToken]]) -> None:
         self._get_tokenizer().add_special_tokens(tokens)
 
-    def encode(self, text: TextRepresentation) -> TokenRepresentation:
-        return self._get_tokenizer()(text)["input_ids"]  # type: ignore
+    def encode(self, text: TextRepresentation) -> GPT2TokenRepresentation:
+        assert self._config is not None
+        tokenizer = self._get_tokenizer()
+        result = tokenizer(
+            text,
+            return_tensors="pt",
+            truncation=self._config.truncation,
+            padding=self._config.padding,
+            max_length=self._config.max_length,
+        )
+        return GPT2TokenRepresentation(**result)  # type: ignore
 
-    def decode(self, token_ids: TokenRepresentation) -> TextRepresentation:
-        return self._get_tokenizer().decode(token_ids, self._config.skip_special_tokens)  # type: ignore
+    def decode(self, token_ids: GPT2TokenRepresentation) -> TextRepresentation:
+        return self._get_tokenizer().batch_decode(token_ids.input_ids, skip_special_tokens=self._config.skip_special_tokens)  # type: ignore
 
 
 class CharTokenizer(Tokenizer):
     def encode(self, text: TextRepresentation) -> TokenRepresentation:
-        batch = [text] if isinstance(text, str) else text
-        max_length = max(len(t) for t in batch)
-        encoding = torch.zeros(len(batch), max_length, dtype=torch.int64)
-        for i, t in enumerate(batch):
+        max_length = max(len(t) for t in text)
+        encoding = torch.zeros(len(text), max_length, dtype=torch.int64)
+        for i, t in enumerate(text):
             encoding[i, : len(t)] = torch.LongTensor(list(map(ord, t))) + 1
         return encoding[0] if isinstance(text, str) else encoding
 

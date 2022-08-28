@@ -12,7 +12,7 @@ tokenizers = [CharTokenizer()]
 @settings(max_examples=100, deadline=None)
 @example(text="")
 def test_all_tokenizers(tokenizer: Tokenizer, text: str):
-    assert tokenizer.decode(tokenizer.encode(text)) == text
+    assert tokenizer.decode(tokenizer.encode([text]))[0] == text
 
 
 @pytest.mark.parametrize("tokenizer", tokenizers)
@@ -24,4 +24,4 @@ def test_tokenizer_encode_raises_error_when_text_is_none(tokenizer: Tokenizer):
 @pytest.mark.parametrize("tokenizer", tokenizers)
 def test_tokenizer_decode_raises_error_when_text_is_none(tokenizer: Tokenizer):
     with pytest.raises(Exception):
-        tokenizer.decode(None)  # type: ignore
+        tokenizer.decode(None)
