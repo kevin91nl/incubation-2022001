@@ -22,7 +22,7 @@ markers = [
 
 [tool.mypy]
 python_version = 3.8
-exclude = ["scratch/"]
+exclude = ["scratch", "outputs", "data"]
 ignore_missing_imports = true
 disable_error_code = ["return-value", "return"]
 show_error_codes = true
@@ -30,7 +30,7 @@ show_error_codes = true
 [tool.pyright]
 pythonVersion = "3.8"
 pythonPlatform = "Linux"
-exclude = ["scratch/"]
+exclude = ["scratch", "outputs", "data"]
 executionEnvironments = [
   {"root" = "src", "pythonVersion" = "3.8"}
 ]

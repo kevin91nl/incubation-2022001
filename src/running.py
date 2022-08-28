@@ -1,8 +1,8 @@
-from pipeline.tokenizer_models import BaseTokenizer
+from pipeline.tokenizer_models import Tokenizer
 
 
 class Runner:
-    def __init__(self, tokenizer: BaseTokenizer):
+    def __init__(self, tokenizer: Tokenizer):
         super().__init__()
         self._tokenizer = tokenizer
 

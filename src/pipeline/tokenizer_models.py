@@ -1,10 +1,12 @@
+from typing import Dict, Union, Any, List, Optional
 from abc import abstractmethod, ABC
-from typing import Dict, Union, Any, List
-
 from transformers.tokenization_utils_base import AddedToken  # type: ignore
 from config import TokenizerConfig
 import torch
 import numpy as np  # NOQA
+from transformers.models.gpt2.tokenization_gpt2 import (
+    GPT2Tokenizer as HuggingFaceGPT2Tokenizer,
+)
 
 
 TokenRepresentation = Union[int, List[int], "np.ndarray[Any, Any]", "torch.Tensor"]
@@ -12,8 +14,7 @@ TextRepresentation = Union[str, List[str]]
 
 
 class Tokenizer(ABC):
-    @abstractmethod
-    def __init__(self, config: TokenizerConfig) -> None:
+    def load_config(self, config: TokenizerConfig) -> Any:
         ...
 
     @abstractmethod
@@ -25,34 +26,31 @@ class Tokenizer(ABC):
         ...
 
 
-class BaseTokenizer(Tokenizer):
-    def __init__(self, config: TokenizerConfig):
-        super().__init__(config)
-        self._config = config
+class GPT2Tokenizer(Tokenizer):
+    _tokenizer: Optional[HuggingFaceGPT2Tokenizer] = None
 
+    def load_config(self, config: TokenizerConfig) -> Any:
+        tokenizer: HuggingFaceGPT2Tokenizer = HuggingFaceGPT2Tokenizer.from_pretrained("gpt2")  # type: ignore
+        tokenizer.add_special_tokens(config.special_tokens)
+        self._tokenizer = tokenizer
 
-class GPT2Tokenizer(BaseTokenizer):
-    def __init__(self, config: TokenizerConfig):
-        from transformers.models.gpt2.tokenization_gpt2 import (
-            GPT2Tokenizer as HuggingFaceGPT2Tokenizer,
-        )
-
-        self._tokenizer: HuggingFaceGPT2Tokenizer = HuggingFaceGPT2Tokenizer.from_pretrained("gpt2")  # type: ignore
-        self._tokenizer.add_special_tokens(config.special_tokens)
-        super().__init__(config)
+    def _get_tokenizer(self) -> HuggingFaceGPT2Tokenizer:
+        assert (
+            self._tokenizer is not None
+        ), "Tokenizer not set; Please use the load_config() method first"
+        return self._tokenizer
 
     def _add_special_tokens(self, tokens: Dict[str, Union[str, AddedToken]]) -> None:
-        assert self._tokenizer is not None
-        self._tokenizer.add_special_tokens(tokens)
+        self._get_tokenizer().add_special_tokens(tokens)
 
     def encode(self, text: TextRepresentation) -> TokenRepresentation:
-        return self._tokenizer(text)["input_ids"]  # type: ignore
+        return self._get_tokenizer()(text)["input_ids"]  # type: ignore
 
     def decode(self, token_ids: TokenRepresentation) -> TextRepresentation:
-        return self._tokenizer.decode(token_ids, self._config.skip_special_tokens)  # type: ignore
+        return self._get_tokenizer().decode(token_ids, self._config.skip_special_tokens)  # type: ignore
 
 
-class CharTokenizer(BaseTokenizer):
+class CharTokenizer(Tokenizer):
     def encode(self, text: TextRepresentation) -> TokenRepresentation:
         batch = [text] if isinstance(text, str) else text
         max_length = max(len(t) for t in batch)
