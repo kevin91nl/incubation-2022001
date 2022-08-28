@@ -55,6 +55,7 @@ class GPT2Tokenizer(Tokenizer):
         self._get_tokenizer().add_special_tokens(tokens)
 
     def encode(self, text: TextRepresentation) -> GPT2TokenRepresentation:
+        assert not isinstance(text, str)
         assert self._config is not None
         tokenizer = self._get_tokenizer()
         result = tokenizer(
@@ -72,6 +73,7 @@ class GPT2Tokenizer(Tokenizer):
 
 class CharTokenizer(Tokenizer):
     def encode(self, text: TextRepresentation) -> TokenRepresentation:
+        assert not isinstance(text, str)
         max_length = max(len(t) for t in text)
         encoding = torch.zeros(len(text), max_length, dtype=torch.int64)
         for i, t in enumerate(text):

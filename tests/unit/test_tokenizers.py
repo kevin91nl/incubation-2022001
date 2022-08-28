@@ -16,6 +16,12 @@ def test_all_tokenizers(tokenizer: Tokenizer, text: str):
 
 
 @pytest.mark.parametrize("tokenizer", tokenizers)
+def test_no_string_allowed(tokenizer: Tokenizer):
+    with pytest.raises(Exception):
+        tokenizer.encode("")  # type: ignore
+
+
+@pytest.mark.parametrize("tokenizer", tokenizers)
 def test_tokenizer_encode_raises_error_when_text_is_none(tokenizer: Tokenizer):
     with pytest.raises(Exception):
         tokenizer.encode(None)  # type: ignore
