@@ -1,4 +1,3 @@
-# Parameterized test
 from pipeline.tokenizer_models import CharTokenizer, Tokenizer
 from hypothesis import example, given, strategies as st, settings
 import pytest
