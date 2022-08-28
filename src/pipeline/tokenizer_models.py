@@ -107,7 +107,9 @@ class GPT2Tokenizer(Tokenizer):
         int
             The vocab size.
         """
-        return self._get_tokenizer().vocab_size
+        return self._get_tokenizer().vocab_size + len(
+            self._get_tokenizer().all_special_ids
+        )
 
     def _get_tokenizer(self) -> HuggingFaceGPT2Tokenizer:
         """Get the tokenizer.
