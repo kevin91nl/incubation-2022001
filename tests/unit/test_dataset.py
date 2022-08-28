@@ -15,7 +15,7 @@ from omegaconf import DictConfig
         min_size=2,
     )
 )
-@settings(deadline=None)
+@settings(deadline=None, max_examples=5)
 def test_dataset_item(items: List[DatasetItem]):
     file = NamedTemporaryFile()
     records = [asdict(item) for item in items]
