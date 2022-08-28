@@ -1,0 +1,13 @@
+defaults:
+  - _self_
+  - experiment: baseline
+
+files:
+  train_data: train.gz
+  train_labels: train_labels.gz
+  test_data: test.gz
+  test_labels: test_labels.gz
+
+paths:
+  log: log
+  data: data

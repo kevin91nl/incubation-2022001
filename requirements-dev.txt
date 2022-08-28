@@ -1,8 +1,10 @@
 -r requirements.txt
 
 black==22.6.0
+hypothesis==6.54.4
 pyflakes==2.4.0
 pre-commit==2.16.0
 pyright==1.1.267
 pytest==6.2.5
+radon==5.1.0
 vulture==2.5

@@ -1,0 +1,20 @@
+# @package _global_
+
+experiment:
+  name: baseline
+
+params:
+  epoch_count: 5
+  lr: 1e-5
+  batch_size: 32
+
+pipeline:
+  tokenizer:
+    name: GPT2Tokenizer
+    special_tokens:
+      pad_token: <|endoftext|>
+    truncation: true
+    padding: true
+    max_length: 512
+  model:
+    name: GPT2Model
