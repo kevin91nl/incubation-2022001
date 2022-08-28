@@ -17,8 +17,8 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - uses: actions/cache@v2
         with:
-          path: ~/.cache/pip
-          key: ${{ hashFiles('setup.cfg') }}-${{ hashFiles('requirements-dev.txt') }}
+          path: ${{ env.pythonLocation }}
+          key: ${{ env.pythonLocation }}-${{ hashFiles('setup.cfg') }}-${{ hashFiles('requirements-dev.txt') }}
       - name: Install dependencies
         run: |
           make init
