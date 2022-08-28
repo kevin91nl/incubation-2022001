@@ -1,4 +1,3 @@
-# Parameterized test
 import pipeline.tokenizer_models
 from pipeline.tokenizer_models import GPT2Tokenizer, Tokenizer
 from hypothesis import example, given, strategies as st, settings
@@ -24,6 +23,12 @@ tokenizer_ids = list(tokenizers_dict.keys())
 @example(text="")
 def test_all_tokenizers(tokenizer: Tokenizer, text: str):
     assert tokenizer.decode(tokenizer.encode([text]))[0] == text
+
+
+@pytest.mark.parametrize("tokenizer", tokenizers)
+def test_no_string_allowed(tokenizer: Tokenizer):
+    with pytest.raises(Exception):
+        tokenizer.encode("")  # type: ignore
 
 
 @pytest.mark.parametrize("tokenizer", tokenizers, ids=tokenizer_ids)

@@ -122,6 +122,7 @@ class GPT2Tokenizer(Tokenizer):
         self._get_tokenizer().add_special_tokens(tokens)
 
     def encode(self, text: TextRepresentation) -> GPT2TokenRepresentation:
+        assert not isinstance(text, str)
         """Encode the text.
 
         Parameters
