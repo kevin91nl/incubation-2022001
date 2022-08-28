@@ -27,6 +27,10 @@ ignore_missing_imports = true
 disable_error_code = ["return-value", "return"]
 show_error_codes = true
 
+[tool.pydocstyle]
+convention = "numpy"
+match_dir = "^(?!(scratch|outputs)).*"
+
 [tool.pyright]
 pythonVersion = "3.8"
 pythonPlatform = "Linux"

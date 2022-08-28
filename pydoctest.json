@@ -1,0 +1,8 @@
+{
+    "include_paths": [
+        "main.py",
+        "src/*.py",
+        "src/**/*.py"
+    ],
+    "parser": "numpy"
+}
