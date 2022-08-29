@@ -165,3 +165,4 @@ scratch/
 outputs/
 data/*
 !data/checking
+!data/synthetic

@@ -29,7 +29,7 @@ show_error_codes = true
 
 [tool.pydocstyle]
 convention = "numpy"
-match_dir = "^(?!(scratch|outputs)).*"
+match_dir = "^(?!(scratch|outputs|data)).*"
 
 [tool.pyright]
 pythonVersion = "3.8"
@@ -109,4 +109,4 @@ reportMatchNotExhaustive = true
 
 [tool.vulture]
 min_confidence = 80
-paths = ["src", "tests"]
+paths = ["src", "script", "tests"]
