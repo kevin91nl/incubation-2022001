@@ -1,20 +1,20 @@
-{"context":"Member State is doing share.","provisions":[]}
-{"context":"Police is doing give.","provisions":[]}
-{"context":"Company is finding knowledge.","provisions":[]}
-{"context":"Company is not allowed to rename rewards. City is not allowed to take items.","provisions":[{"provision_type":"prohibition","bearer":"Company","action":"rename","other_party":"rewards"},{"provision_type":"prohibition","bearer":"City","action":"take","other_party":"items"}]}
-{"context":"Member State must take rewards. City may share items.","provisions":[{"provision_type":"duty","bearer":"Member State","action":"take","other_party":"rewards"},{"provision_type":"permission","bearer":"City","action":"share","other_party":"items"}]}
-{"context":"Company must move luck.","provisions":[{"provision_type":"duty","bearer":"Company","action":"move","other_party":"luck"}]}
-{"context":"City should not send items.","provisions":[{"provision_type":"prohibition","bearer":"City","action":"send","other_party":"items"}]}
-{"context":"Hospital should send rewards. Member State is not allowed to move luck.","provisions":[{"provision_type":"duty","bearer":"Hospital","action":"send","other_party":"rewards"},{"provision_type":"prohibition","bearer":"Member State","action":"move","other_party":"luck"}]}
-{"context":"Country is not allowed to delete luck. School should move knowledge.","provisions":[{"provision_type":"prohibition","bearer":"Country","action":"delete","other_party":"luck"},{"provision_type":"duty","bearer":"School","action":"move","other_party":"knowledge"}]}
+{"context":"Company must delete rewards. University should not share knowledge.","provisions":[{"provision_type":"duty","bearer":"Company","action":"delete","other_party":"rewards"},{"provision_type":"prohibition","bearer":"University","action":"share","other_party":"knowledge"}]}
+{"context":"City is doing receive.","provisions":[]}
+{"context":"Member State may share rewards.","provisions":[{"provision_type":"permission","bearer":"Member State","action":"share","other_party":"rewards"}]}
+{"context":"Police is allowed to give knowledge.","provisions":[{"provision_type":"permission","bearer":"Police","action":"give","other_party":"knowledge"}]}
+{"context":"Country is doing share.","provisions":[]}
+{"context":"Company should not rename rewards.","provisions":[{"provision_type":"prohibition","bearer":"Company","action":"rename","other_party":"rewards"}]}
+{"context":"Hospital is doing rename.","provisions":[]}
+{"context":"City may take items.","provisions":[{"provision_type":"permission","bearer":"City","action":"take","other_party":"items"}]}
+{"context":"Company is allowed to move luck.","provisions":[{"provision_type":"permission","bearer":"Company","action":"move","other_party":"luck"}]}
+{"context":"City must send items.","provisions":[{"provision_type":"duty","bearer":"City","action":"send","other_party":"items"}]}
+{"context":"Hospital is not allowed to send rewards. Member State should move luck.","provisions":[{"provision_type":"prohibition","bearer":"Hospital","action":"send","other_party":"rewards"},{"provision_type":"duty","bearer":"Member State","action":"move","other_party":"luck"}]}
+{"context":"Hospital is allowed to give knowledge. School should not move knowledge.","provisions":[{"provision_type":"permission","bearer":"Hospital","action":"give","other_party":"knowledge"},{"provision_type":"prohibition","bearer":"School","action":"move","other_party":"knowledge"}]}
 {"context":"Hospital is doing move.","provisions":[]}
-{"context":"Company must delete knowledge.","provisions":[{"provision_type":"duty","bearer":"Company","action":"delete","other_party":"knowledge"}]}
-{"context":"Hospital may share items.","provisions":[{"provision_type":"permission","bearer":"Hospital","action":"share","other_party":"items"}]}
-{"context":"University may create items.","provisions":[{"provision_type":"permission","bearer":"University","action":"create","other_party":"items"}]}
-{"context":"Hospital is doing give.","provisions":[]}
-{"context":"School should take luck.","provisions":[{"provision_type":"duty","bearer":"School","action":"take","other_party":"luck"}]}
-{"context":"Hospital is allowed to delete luck.","provisions":[{"provision_type":"permission","bearer":"Hospital","action":"delete","other_party":"luck"}]}
-{"context":"School must receive items. Police should not share rewards.","provisions":[{"provision_type":"duty","bearer":"School","action":"receive","other_party":"items"},{"provision_type":"prohibition","bearer":"Police","action":"share","other_party":"rewards"}]}
-{"context":"City should not create luck.","provisions":[{"provision_type":"prohibition","bearer":"City","action":"create","other_party":"luck"}]}
-{"context":"City is finding items.","provisions":[]}
-{"context":"Country is doing receive.","provisions":[]}
+{"context":"Company must delete knowledge. City should not delete items.","provisions":[{"provision_type":"duty","bearer":"Company","action":"delete","other_party":"knowledge"},{"provision_type":"prohibition","bearer":"City","action":"delete","other_party":"items"}]}
+{"context":"Member State may send items.","provisions":[{"provision_type":"permission","bearer":"Member State","action":"send","other_party":"items"}]}
+{"context":"Company is doing rename.","provisions":[]}
+{"context":"School is not allowed to take luck.","provisions":[{"provision_type":"prohibition","bearer":"School","action":"take","other_party":"luck"}]}
+{"context":"Police is finding knowledge.","provisions":[]}
+{"context":"School should not receive items. Police is allowed to share rewards.","provisions":[{"provision_type":"prohibition","bearer":"School","action":"receive","other_party":"items"},{"provision_type":"permission","bearer":"Police","action":"share","other_party":"rewards"}]}
+{"context":"City must create luck.","provisions":[{"provision_type":"duty","bearer":"City","action":"create","other_party":"luck"}]}

@@ -24,30 +24,31 @@ dataset_generation:
     other:
       - "{bearer} is doing {action}."
       - "{bearer} is finding {other_party}."
-  bearers:
-    - Member State
-    - Country
-    - City
-    - Company
-    - Police
-    - Hospital
-    - School
-    - University
-  actions:
-    - create
-    - give
-    - take
-    - move
-    - delete
-    - rename
-    - receive
-    - send
-    - share
-  other_parties:
-    - items
-    - luck
-    - knowledge
-    - rewards
+  fields:
+    bearer:
+      - Member State
+      - Country
+      - City
+      - Company
+      - Police
+      - Hospital
+      - School
+      - University
+    action:
+      - create
+      - give
+      - take
+      - move
+      - delete
+      - rename
+      - receive
+      - send
+      - share
+    other_party:
+      - items
+      - luck
+      - knowledge
+      - rewards
 
 paths:
   data: ${hydra:runtime.cwd}/data
