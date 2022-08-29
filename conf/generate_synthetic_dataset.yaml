@@ -1,0 +1,53 @@
+dataset:
+  train_dataset:
+    path: ${paths.data}/synthetic/train.jsonl
+    size: 100
+  test_dataset:
+    path: ${paths.data}/synthetic/test.jsonl
+    size: 20
+  validation_dataset:
+    path: ${paths.data}/synthetic/validation.jsonl
+    size: 20
+
+dataset_generation:
+  seed: 0
+  patterns:
+    duty:
+      - "{bearer} must {action} {other_party}."
+      - "{bearer} should {action} {other_party}."
+    permission:
+      - "{bearer} may {action} {other_party}."
+      - "{bearer} is allowed to {action} {other_party}."
+    prohibition:
+      - "{bearer} should not {action} {other_party}."
+      - "{bearer} is not allowed to {action} {other_party}."
+    other:
+      - "{bearer} is doing {action}."
+      - "{bearer} is finding {other_party}."
+  bearers:
+    - Member State
+    - Country
+    - City
+    - Company
+    - Police
+    - Hospital
+    - School
+    - University
+  actions:
+    - create
+    - give
+    - take
+    - move
+    - delete
+    - rename
+    - receive
+    - send
+    - share
+  other_parties:
+    - items
+    - luck
+    - knowledge
+    - rewards
+
+paths:
+  data: ${hydra:runtime.cwd}/data

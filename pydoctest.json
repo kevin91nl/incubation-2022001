@@ -2,7 +2,9 @@
     "include_paths": [
         "main.py",
         "src/*.py",
-        "src/**/*.py"
+        "src/**/*.py",
+        "script/*.py",
+        "script/**/*.py"
     ],
     "parser": "numpy"
 }
