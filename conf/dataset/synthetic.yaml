@@ -1,0 +1,12 @@
+# @package _global_
+
+dataset:
+  train_dataset:
+    path: ${paths.data}/synthetic/train.jsonl
+    size: 100
+  test_dataset:
+    path: ${paths.data}/synthetic/test.jsonl
+    size: 20
+  validation_dataset:
+    path: ${paths.data}/synthetic/validation.jsonl
+    size: 20
