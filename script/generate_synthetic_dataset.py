@@ -25,9 +25,10 @@ def fill_in_pattern(pattern: str, provision: ProvisionFrame) -> str:
     str
         The filled in pattern.
     """
-    pattern = pattern.replace("{bearer}", provision.bearer)
-    pattern = pattern.replace("{action}", provision.action)
-    pattern = pattern.replace("{other_party}", provision.other_party)
+    for field in ProvisionFrame.__dataclass_fields__:
+        pattern = pattern.replace(
+            "{" + f"{field}" + "}", provision.__getattribute__(field)
+        )
     return pattern
 
 
@@ -44,11 +45,12 @@ def generate_provision(config: DictConfig) -> ProvisionFrame:
     ProvisionFrame
         The generated provision.
     """
+    values = dict()
+    for field in ProvisionFrame.__dataclass_fields__:
+        if field in config.fields:
+            values[field] = random.choice(config.fields[field])
     return ProvisionFrame(
-        provision_type=random.choice(list(ProvisionType)).value,
-        bearer=random.choice(config.bearers),
-        action=random.choice(config.actions),
-        other_party=random.choice(config.other_parties),
+        provision_type=random.choice(list(ProvisionType)).value, **values
     )
 
 
