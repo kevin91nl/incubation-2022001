@@ -1,9 +1,10 @@
 """Dataset loaders."""
+from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from omegaconf import DictConfig
 from torch.utils.data import Dataset
 import pandas as pd
-from typing import List
+from typing import Any, Dict, List
 from enum import Enum
 
 
@@ -49,7 +50,7 @@ class ConfiguredDataset(Dataset):  # type: ignore
             config.path, orient="records", lines=True
         )
 
-    def __getitem__(self, index: int) -> DatasetItem:
+    def __getitem__(self, index: int) -> Any:
         """Get the item at the given index.
 
         Parameters
@@ -59,7 +60,7 @@ class ConfiguredDataset(Dataset):  # type: ignore
 
         Returns
         -------
-        DatasetItem
+        Any
             The item.
         """
         return DatasetItem(**self.data.iloc[index % len(self)].to_dict())
@@ -73,3 +74,37 @@ class ConfiguredDataset(Dataset):  # type: ignore
             The length of the dataset.
         """
         return len(self.data)
+
+
+def collate_fn(batch: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Collate the batch.
+
+    Parameters
+    ----------
+    batch : List[Dict[str, Any]]
+        The batch.
+
+    Returns
+    -------
+    List[Dict[str, Any]]
+        The collated batch.
+    """
+    return batch
+
+
+class DatasetBatchTransformer(ABC):
+    @abstractmethod
+    def transform(self, batch: List[Any]) -> Any:
+        """Transform the batch.
+
+        Parameters
+        ----------
+        batch : List[Any]
+            The batch.
+        """
+        ...
+
+
+class ProvisionDatasetBatchTransformer(DatasetBatchTransformer):
+    def transform(self, batch: List[DatasetItem]) -> Any:
+        return [item.context for item in batch]

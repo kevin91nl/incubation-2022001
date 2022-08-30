@@ -76,23 +76,23 @@ class UnsupportedTokenTypeException(Exception):
         return f'Token type "{self.token_type}" not supported'
 
 
-class PreprocessingStepMissingException(Exception):
-    """Exception when a preprocess step is not found."""
+class MethodCallMissingException(Exception):
+    """Exception when a method call is missing."""
 
-    def __init__(self, step: Any, *args: Any, **kwargs: Any) -> None:
+    def __init__(self, fn: Any, *args: Any, **kwargs: Any) -> None:
         """Initialize the exception.
 
         Parameters
         ----------
-        step : Any
-            The preprocessing function.
+        fn : Any
+            The method which should be called.
         args : Any
             Additional positional arguments.
         kwargs : Any
             Additional keyword arguments.
         """
         super().__init__(*args, **kwargs)
-        self.step = step
+        self._fn = fn
 
     def __str__(self) -> str:
         """Build a string representation of the exception.
@@ -102,4 +102,4 @@ class PreprocessingStepMissingException(Exception):
         str
             The string representation of the exception.
         """
-        return f'Please call the "{self.step}" before calling this method.'
+        return f'Please call the "{self._fn}" before calling this method.'

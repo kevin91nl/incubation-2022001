@@ -2,13 +2,13 @@
 
 experiment:
   name: baseline
-
-params:
-  epoch_count: 5
-  lr: 1e-5
-  batch_size: 32
+  params:
+    epoch_count: 2
+    batch_size: 2
 
 pipeline:
+  optimizer:
+    learning_rate: 6.25e-5
   tokenizer:
     name: GPT2Tokenizer
     special_tokens:
