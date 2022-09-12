@@ -93,6 +93,8 @@ def collate_fn(batch: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
 
 
 class DatasetBatchTransformer(ABC):
+    """A dataset batch transformer."""
+
     @abstractmethod
     def transform(self, batch: List[Any]) -> Any:
         """Transform the batch.
@@ -101,10 +103,29 @@ class DatasetBatchTransformer(ABC):
         ----------
         batch : List[Any]
             The batch.
+
+        Returns
+        -------
+        Any
+            The transformed batch.
         """
         ...
 
 
 class ProvisionDatasetBatchTransformer(DatasetBatchTransformer):
+    """A batch transformer for the provision dataset."""
+
     def transform(self, batch: List[DatasetItem]) -> Any:
+        """Transform the batch.
+
+        Parameters
+        ----------
+        batch : List[DatasetItem]
+            The batch.
+
+        Returns
+        -------
+        Any
+            The transformed batch.
+        """
         return [item.context for item in batch]

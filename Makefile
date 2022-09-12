@@ -1,4 +1,4 @@
-TESTFLAGS = ""
+TEST_FLAGS = ""
 
 init:
 	pip install --upgrade --upgrade-strategy eager -r requirements-dev.txt
@@ -19,16 +19,16 @@ check:
 	pyright
 
 -run-tests-in-folder:
-	python -m pytest $(TESTDIR) $(TESTFLAGS) --exitfirst ; \
+	python -m pytest $(TESTDIR) $(TEST_FLAGS) --exitfirst ; \
 	EXIT_STATUS=$$? ; \
 	[ "$$EXIT_STATUS" -eq 1 ] && exit 1 || exit 0
 
-test-doctest: TESTDIR=src
-test-doctest: TESTFLAGS=--doctest-modules
+test-doctest: TEST_DIR=src
+test-doctest: TEST_FLAGS=--doctest-modules
 test-doctest: -run-tests-in-folder
 
-test-unit: TESTDIR=tests/unit
+test-unit: TEST_DIR=tests/unit
 test-unit: -run-tests-in-folder
 
-test-integration: TESTDIR=tests/integration
+test-integration: TEST_DIR=tests/integration
 test-integration: -run-tests-in-folder

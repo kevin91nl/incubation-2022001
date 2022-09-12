@@ -66,7 +66,7 @@ class Runner:
                     batch: List[DatasetItem] = batch
                     input_data = self._batch_transformer.transform(batch)
                     token_ids = self._tokenizer.encode(input_data)
-                    outputs = self._model.predict(token_ids)
+                    # outputs = self._model.predict(token_ids)
                     print(token_ids)
                     print("---")
                     return

@@ -7,12 +7,7 @@ class ClassNotFoundException(Exception):
     """Exception when a dynamically loaded class is not found."""
 
     def __init__(
-        self,
-        abc_class: Any,
-        class_name: str,
-        candidates: Optional[List[str]],
-        *args: Any,
-        **kwargs: Any,
+        self, abc_class: Any, class_name: str, candidates: Optional[List[str]]
     ) -> None:
         """Initialize the exception.
 
@@ -24,12 +19,8 @@ class ClassNotFoundException(Exception):
             The name of the class.
         candidates : Optional[List[str]]
             A list of candidate class names.
-        args : Any
-            Additional positional arguments.
-        kwargs : Any
-            Additional keyword arguments.
         """
-        super().__init__(*args, **kwargs)
+        super().__init__()
         self.abc_class = abc_class
         self.class_name = class_name
         self.candidates = candidates
@@ -50,19 +41,15 @@ class ClassNotFoundException(Exception):
 class UnsupportedTokenTypeException(Exception):
     """Exception when a token type is not supported."""
 
-    def __init__(self, token_type: Any, *args: Any, **kwargs: Any) -> None:
+    def __init__(self, token_type: Any) -> None:
         """Initialize the exception.
 
         Parameters
         ----------
         token_type : Any
             The token type.
-        args : Any
-            Additional positional arguments.
-        kwargs : Any
-            Additional keyword arguments.
         """
-        super().__init__(*args, **kwargs)
+        super().__init__()
         self.token_type = token_type
 
     def __str__(self) -> str:
@@ -79,19 +66,15 @@ class UnsupportedTokenTypeException(Exception):
 class MethodCallMissingException(Exception):
     """Exception when a method call is missing."""
 
-    def __init__(self, fn: Any, *args: Any, **kwargs: Any) -> None:
+    def __init__(self, fn: Any) -> None:
         """Initialize the exception.
 
         Parameters
         ----------
         fn : Any
             The method which should be called.
-        args : Any
-            Additional positional arguments.
-        kwargs : Any
-            Additional keyword arguments.
         """
-        super().__init__(*args, **kwargs)
+        super().__init__()
         self._fn = fn
 
     def __str__(self) -> str:

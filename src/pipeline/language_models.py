@@ -44,8 +44,8 @@ class Model(ABC):
         ...
 
 
-class LanguageModel(Model):
-    """Abstract class for langugage models."""
+class LanguageModel(Model, ABC):
+    """Abstract class for language models."""
 
     def load_config(self, config: DictConfig) -> None:
         """Load the configuration.
@@ -68,7 +68,7 @@ class LanguageModel(Model):
         ...
 
     def setup_training(self, config: DictConfig) -> None:
-        """Setup the model for training."""
+        """Set up the model for training."""
         ...
 
 
@@ -120,7 +120,7 @@ class GPT2Model(LanguageModel):
         return self._model
 
     def setup_optimizer(self, config: DictConfig):
-        """Setup the optimizer.
+        """Set up the optimizer.
 
         Parameters
         ----------
@@ -157,7 +157,7 @@ class GPT2Model(LanguageModel):
         return self._model.named_parameters()  # type: ignore
 
     def setup_training(self, config: DictConfig) -> None:
-        """Setup the model for training.
+        """Set up the model for training.
 
         Parameters
         ----------
@@ -176,4 +176,13 @@ class GPT2Model(LanguageModel):
         self._model.train()
 
     def train(self, input_batch: Any, target_batch: Any) -> None:
+        """Train the model.
+
+        Parameters
+        ----------
+        input_batch : Any
+            The input batch.
+        target_batch : Any
+            The target batch.
+        """
         pass

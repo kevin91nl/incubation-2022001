@@ -1,20 +1,20 @@
 """Tokenizer definitions."""
 
+from abc import abstractmethod, ABC
 from dataclasses import dataclass
 from typing import Dict, Union, Any, List, Optional
-from abc import abstractmethod, ABC
-from omegaconf import DictConfig
-from transformers.tokenization_utils_base import AddedToken  # type: ignore
-import torch
+
 import numpy as np  # NOQA
+import torch
+from omegaconf import DictConfig
 from transformers.models.gpt2.tokenization_gpt2 import (
     GPT2Tokenizer as HuggingFaceGPT2Tokenizer,
 )
+from transformers.tokenization_utils_base import AddedToken  # type: ignore
 
 from exception_types import UnsupportedTokenTypeException
 
 _primary_token_classes = Union[int, List[int], "np.ndarray[Any, Any]", "torch.Tensor"]
-
 
 TokenRepresentation = _primary_token_classes
 TextRepresentation = List[str]
@@ -174,7 +174,9 @@ class GPT2Tokenizer(Tokenizer):
         TextRepresentation
             The decoded text.
         """
-        return self._get_tokenizer().batch_decode(token_ids.input_ids, skip_special_tokens=self._config.skip_special_tokens)  # type: ignore
+        return self._get_tokenizer().batch_decode(
+            token_ids.input_ids, skip_special_tokens=self._config.skip_special_tokens
+        )  # type: ignore
 
 
 class CharTokenizer(Tokenizer):
@@ -215,7 +217,8 @@ class CharTokenizer(Tokenizer):
             encoding[i, : len(t)] = torch.LongTensor(list(map(ord, t))) + 1
         return encoding[0] if isinstance(text, str) else encoding
 
-    def _decode_int(self, token_ids: int) -> str:
+    @staticmethod
+    def _decode_int(token_ids: int) -> str:
         """Decode the token id where the input is an integer.
 
         Parameters
