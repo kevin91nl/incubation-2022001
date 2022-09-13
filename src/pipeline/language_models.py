@@ -8,7 +8,7 @@ from exception_types import MethodCallMissingException
 from pipeline.tokenizer_models import GPT2TokenRepresentation, GPT2Tokenizer
 from transformers.models.gpt2.modeling_gpt2 import GPT2Model as HuggingFaceGPT2Model
 import torch
-from transformers import AdamW  # type: ignore
+from torch.optim import AdamW
 
 
 class Model(ABC):
@@ -135,7 +135,9 @@ class GPT2Model(LanguageModel):
         """
         model_params = list(self._model.named_parameters())  # type: ignore
         optimizer_params = [{"params": [param for _, param in model_params]}]
-        self._optimizer = AdamW(optimizer_params, lr=config.pipeline.optimizer.learning_rate)  # type: ignore
+        self._optimizer = AdamW(
+            optimizer_params, lr=config.pipeline.optimizer.learning_rate
+        )
 
     def predict(self, inputs: GPT2TokenRepresentation) -> Any:
         """Predict given the inputs.
@@ -191,4 +193,5 @@ class GPT2Model(LanguageModel):
         target_batch : Any
             The target batch.
         """
-        pass
+        print(input_batch)
+        print(target_batch)

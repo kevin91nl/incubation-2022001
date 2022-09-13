@@ -175,8 +175,11 @@ class GPT2Tokenizer(Tokenizer):
             The decoded text.
         """
         return self._get_tokenizer().batch_decode(
-            token_ids.input_ids, skip_special_tokens=self._config.skip_special_tokens
-        )  # type: ignore
+            token_ids.input_ids,
+            skip_special_tokens=self._config.skip_special_tokens
+            if self._config
+            else False,
+        )
 
 
 class CharTokenizer(Tokenizer):

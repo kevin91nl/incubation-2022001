@@ -3,7 +3,7 @@
 from dataset import DatasetBatchTransformer, DatasetItem
 from pipeline.language_models import LanguageModel
 from pipeline.tokenizer_models import Tokenizer
-from typing import List, Optional
+from typing import List, Optional, Any
 from omegaconf import DictConfig
 from tqdm import trange
 from torch.utils.data import DataLoader
@@ -17,9 +17,9 @@ class Runner:
         tokenizer: Tokenizer,
         model: LanguageModel,
         batch_transformer: DatasetBatchTransformer,
-        train_dataloader: Optional[DataLoader] = None,
-        test_dataloader: Optional[DataLoader] = None,
-        validation_dataloader: Optional[DataLoader] = None,
+        train_dataloader: Optional[DataLoader[Any]] = None,
+        test_dataloader: Optional[DataLoader[Any]] = None,
+        validation_dataloader: Optional[DataLoader[Any]] = None,
     ) -> None:
         """Initialize the runner.
 
@@ -31,11 +31,11 @@ class Runner:
             The model.
         batch_transformer : DatasetBatchTransformer
             The batch transformer.
-        train_dataloader : DataLoader, optional
+        train_dataloader : Optional[DataLoader[Any]], optional
             The train dataloader
-        test_dataloader : DataLoader, optional
+        test_dataloader : Optional[DataLoader[Any]], optional
             The test dataloader
-        validation_dataloader : DataLoader, optional
+        validation_dataloader : Optional[DataLoader[Any]], optional
             The validation dataloader
         """
         super().__init__()
