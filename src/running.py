@@ -27,16 +27,16 @@ class Runner:
         ----------
         tokenizer : Tokenizer
             The tokenizer.
-        model : InformationExtractionModel
+        model : LanguageModel
             The model.
         batch_transformer : DatasetBatchTransformer
             The batch transformer.
-        train_dataloader : Optional[DataLoader]
-            The train dataloader.
-        test_dataloader : Optional[DataLoader]
-            The test dataloader.
-        validation_dataloader : Optional[DataLoader]
-            The validation dataloader.
+        train_dataloader : DataLoader, optional
+            The train dataloader
+        test_dataloader : DataLoader, optional
+            The test dataloader
+        validation_dataloader : DataLoader, optional
+            The validation dataloader
         """
         super().__init__()
         self._tokenizer = tokenizer
