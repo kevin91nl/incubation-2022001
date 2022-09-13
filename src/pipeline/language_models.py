@@ -68,7 +68,13 @@ class LanguageModel(Model, ABC):
         ...
 
     def setup_training(self, config: DictConfig) -> None:
-        """Set up the model for training."""
+        """Set up the model for training.
+
+        Parameters
+        ----------
+        config : DictConfig
+            The configuration.
+        """
         ...
 
 
@@ -119,7 +125,7 @@ class GPT2Model(LanguageModel):
         ), "Model not set; Please use the load_config() method first"
         return self._model
 
-    def setup_optimizer(self, config: DictConfig):
+    def setup_optimizer(self, config: DictConfig) -> None:
         """Set up the optimizer.
 
         Parameters

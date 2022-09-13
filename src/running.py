@@ -17,9 +17,9 @@ class Runner:
         tokenizer: Tokenizer,
         model: LanguageModel,
         batch_transformer: DatasetBatchTransformer,
-        train_dataloader: Optional[DataLoader] = None,  # type: ignore
-        test_dataloader: Optional[DataLoader] = None,  # type: ignore
-        validation_dataloader: Optional[DataLoader] = None,  # type: ignore
+        train_dataloader: Optional[DataLoader] = None,
+        test_dataloader: Optional[DataLoader] = None,
+        validation_dataloader: Optional[DataLoader] = None,
     ) -> None:
         """Initialize the runner.
 
@@ -53,11 +53,6 @@ class Runner:
         ----------
         config : DictConfig
             The configuration.
-
-        Raises
-        ------
-        MethodCallMissingException
-            If the optimizer is not set up.
         """
         if self._train_dataloader:
             for _ in trange(config.experiment.params.epoch_count):
